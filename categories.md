@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Categories
+title: Projetos por competência
 permalink: /categories/
 ---
 

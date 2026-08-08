@@ -2,8 +2,8 @@
 layout: post
 title: "Pipeline distribuído para minerar padrões de crimes na Inglaterra"
 featured-img: bandeira_inglaterra
-summary: "Preparação de 124 mil ocorrências e mineração de padrões frequentes com R, SparkR e FP-Growth."
-categories: [Engenharia de Dados, Spark, R, ETL, Mineração de Dados]
+summary: "Transformação de 124 mil ocorrências em modelos analíticos e padrões frequentes com SparkR e FP-Growth."
+categories: [Analytics Engineering, Transformação de Dados, Spark, Qualidade de Dados, Mineração de Dados]
 ---
 
 Como transformar milhares de registros públicos em informação analisável sem perder contexto? Neste estudo, trabalhei com ocorrências da polícia do Reino Unido e organizei um fluxo de ingestão, limpeza e processamento distribuído para descobrir padrões frequentes nos dados.
@@ -63,6 +63,17 @@ Arquivos mensais -> validação de esquema -> camada bruta
 Os parâmetros de suporte e confiança devem ser versionados junto ao resultado. Sem isso, duas execuções sobre os mesmos dados podem gerar conjuntos de regras diferentes sem que a causa fique evidente.
 
 ![Distribuição geográfica das ocorrências](https://dl.dropbox.com/s/mcyl9lggekvsueh/mapa_crimes.png?dl=0)
+
+### Da transformação ao produto analítico
+
+O resultado do processamento pode ser publicado em dois modelos complementares:
+
+| Modelo | Granularidade | Uso principal |
+| --- | --- | --- |
+| `fct_ocorrencia_criminal` | uma ocorrência registrada | análises por período, local e categoria |
+| `mart_regras_associacao` | uma regra por período e conjunto de parâmetros | comparação de suporte, confiança e estabilidade |
+
+Dimensões de tempo, localização e categoria permitem reaproveitar as mesmas definições em diferentes análises. No `mart_regras_associacao`, eu manteria também `min_support`, `min_confidence`, versão do algoritmo e data de processamento. Assim, a regra deixa de ser apenas uma saída de notebook e passa a ser um produto analítico comparável ao longo do tempo.
 
 ### Observabilidade e evolução
 

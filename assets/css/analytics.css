@@ -1,0 +1,107 @@
+.hero__role {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.analytics-intro {
+  padding: 4rem 0;
+}
+
+.analytics-kicker {
+  margin-bottom: 0.75rem;
+  color: #277cea;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.analytics-intro h2,
+.portfolio-projects__header h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.analytics-intro__lead,
+.portfolio-projects__header > p:last-child {
+  max-width: 48rem;
+  color: #606a70;
+  font-size: 1.08rem;
+}
+
+.analytics-pillars {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 2.25rem 0;
+}
+
+.analytics-pillar {
+  padding: 1.5rem;
+  border: 1px solid #e4e9ed;
+  border-top: 3px solid #277cea;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(52, 56, 81, 0.06);
+}
+
+.analytics-pillar h3 {
+  margin-bottom: 0.65rem;
+  font-size: 1.1rem;
+}
+
+.analytics-pillar p {
+  margin-bottom: 0;
+  color: #606a70;
+}
+
+.analytics-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.analytics-actions .btn {
+  margin: 0;
+}
+
+.analytics-actions__link {
+  font-weight: 600;
+}
+
+.portfolio-projects {
+  scroll-margin-top: 4rem;
+}
+
+.portfolio-projects__header {
+  max-width: 52.5rem;
+  padding-top: 4rem;
+}
+
+.portfolio-projects .post-list {
+  padding-top: 2rem;
+}
+
+@media only screen and (min-width: 48em) {
+  .analytics-intro {
+    padding: 5rem 0;
+  }
+
+  .analytics-intro h2,
+  .portfolio-projects__header h2 {
+    font-size: 2.5rem;
+  }
+
+  .analytics-pillars {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

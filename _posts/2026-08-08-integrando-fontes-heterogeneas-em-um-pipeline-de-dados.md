@@ -2,8 +2,8 @@
 layout: post
 title: "Fontes heterogêneas: projetando um pipeline de dados confiável"
 featured-img: python
-summary: "Como integrar CSV, API JSON e banco relacional com contratos, idempotência, qualidade e rastreabilidade."
-categories: [Engenharia de Dados, ETL, PySpark, SQL, Qualidade de Dados]
+summary: "Integração de CSV, API e PostgreSQL até um mart de vendas com métricas documentadas e testáveis."
+categories: [Analytics Engineering, ELT, PySpark, SQL, Qualidade de Dados]
 ---
 
 Integrar dados não é apenas conectar sistemas. Cada fonte possui seu próprio ritmo, formato, semântica e forma de falhar. Um arquivo CSV pode mudar o nome de uma coluna; uma API pode paginar ou limitar requisições; um banco transacional pode atualizar registros já processados.
@@ -167,6 +167,26 @@ sales_curated = (
 {% endhighlight %}
 
 Uma cotação ausente é uma falha de completude, não um valor zero. O lote pode ser bloqueado ou publicado parcialmente conforme o acordo de nível de serviço, mas a decisão deve ser explícita e observável.
+
+### Do dado integrado ao mart de vendas
+
+A tabela `sales_curated` mantém a granularidade de item do pedido e funciona como base reutilizável. Para consumo de negócio, eu publicaria um mart diário com uma linha por **data, produto e moeda de origem**.
+
+{% highlight sql %}
+SELECT
+    CAST(order_timestamp AS DATE) AS order_date,
+    product_id,
+    currency,
+    COUNT(DISTINCT order_id) AS total_orders,
+    SUM(quantity) AS units_sold,
+    SUM(gross_amount_brl) AS gross_revenue_brl
+FROM curated.sales
+GROUP BY 1, 2, 3;
+{% endhighlight %}
+
+`gross_revenue_brl` teria uma definição única: soma de quantidade × preço unitário × cotação vigente, antes de descontos, cancelamentos e devoluções. Se o negócio precisar de receita líquida, ela deve ser publicada como outra métrica, com regras próprias — não como uma alteração silenciosa da métrica existente.
+
+Testes de unicidade na chave do item, relacionamento com produtos e presença da cotação protegem o modelo base. No mart, uma reconciliação garante que a soma diária permaneça igual à camada detalhada para o mesmo conjunto de filtros.
 
 ### Idempotência e deduplicação
 

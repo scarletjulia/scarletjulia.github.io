@@ -4,13 +4,13 @@ title: Contato
 permalink: /contato/
 ---
 
-![participantes](https://dl.dropbox.com/s/bo94l66zuz2nqup/sleek.jpg?dl=0)
+Vamos conversar sobre dados?
 
-Gosto do que viu? Tem alguma dica, crítica ou sugestão?
+Tenho interesse em oportunidades e conversas sobre Analytics Engineering, modelagem de dados, qualidade e construção de métricas confiáveis.
 
-É só preencher o formulário ou me enviar um [email me](mailto:{{site.email}}).
+Preencha o formulário ou envie um [e-mail](mailto:{{site.email}}).
 
-Até logo!
+Responderei assim que possível.
 
 {% include form.html %}
 

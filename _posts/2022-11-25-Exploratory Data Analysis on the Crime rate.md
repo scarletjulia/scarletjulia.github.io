@@ -2,8 +2,8 @@
 layout: post
 title: "Da ocorrência ao indicador: dados de crimes de São Francisco"
 featured-img: object_detection
-summary: "Estruturação de uma base com 150 mil ocorrências para análises temporais, geográficas e por categoria."
-categories: [Engenharia de Dados, ETL, Python, Qualidade de Dados, Geodados]
+summary: "Modelagem de 150 mil ocorrências em fatos, dimensões e indicadores temporais e geográficos."
+categories: [Analytics Engineering, Modelagem Dimensional, Python, Qualidade de Dados, Geodados]
 ---
 
 Uma análise confiável de segurança pública depende de uma base consistente: identificadores únicos, datas válidas, categorias padronizadas e coordenadas dentro da região esperada. Neste estudo, preparei **150.500 ocorrências e 13 colunas** para responder perguntas sobre categoria, distrito, dia da semana, resolução e distribuição geográfica dos incidentes em São Francisco.
@@ -49,6 +49,18 @@ df["PdDistrict"] = df["PdDistrict"].str.strip().str.upper()
 {% endhighlight %}
 
 Na sequência, uma tabela fato de ocorrências poderia se relacionar a dimensões de tempo, categoria e distrito. Isso evita repetir atributos descritivos e facilita o consumo por dashboards.
+
+### Modelo dimensional
+
+A granularidade de `fct_ocorrencia` seria **uma linha por incidente registrado**. As dimensões compartilhadas manteriam descrições consistentes entre dashboards:
+
+- `dim_tempo`: data, dia da semana, mês, trimestre e ano;
+- `dim_categoria_crime`: categoria e descrição padronizadas;
+- `dim_distrito_policial`: código e nome do distrito;
+- `dim_resolucao`: situação e agrupamento do desfecho;
+- `dim_localizacao`: endereço e coordenadas validadas.
+
+Sobre esse modelo, marts específicos poderiam publicar ocorrências por dia, distrito e categoria. Métricas como `total_ocorrencias` e `percentual_resolvido` precisariam de definição explícita, período de cobertura e data da última atualização.
 
 ### Indicadores publicados
 

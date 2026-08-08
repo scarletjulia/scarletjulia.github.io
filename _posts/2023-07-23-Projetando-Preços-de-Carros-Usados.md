@@ -2,8 +2,8 @@
 layout: post
 title: "Pipeline de dados para previsão de preços de carros usados"
 featured-img: carros_usados
-summary: "Do diagnóstico de encoding à preparação de uma camada confiável para análises e modelos de regressão."
-categories: [Engenharia de Dados, ETL, Python, Qualidade de Dados, Machine Learning]
+summary: "Modelagem de anúncios, regras de qualidade e métricas de mercado antes da camada de Machine Learning."
+categories: [Analytics Engineering, Camada Analítica, Python, Qualidade de Dados, Machine Learning]
 ---
 
 Este projeto nasceu de um desafio de Ciência de Dados da Indicium, concluído em sete dias. Meu objetivo foi analisar anúncios de veículos usados e construir uma base confiável para responder perguntas de negócio e treinar modelos de regressão.
@@ -98,6 +98,20 @@ Veículos com revisão em concessionária tiveram preço mediano de R$ 136,21 mi
 A hipótese de que mais fotos indicariam preço maior não se confirmou: anúncios com até a média de fotos tiveram mediana de R$ 117,74 mil, contra R$ 107,15 mil nos anúncios acima da média.
 
 ![Relação entre o número de fotos e o preço do veículo]({{ '/assets/img/posts/carros-usados/numero-fotos-preco.png' | relative_url }})
+
+### Modelo analítico para o mercado de veículos
+
+Para acompanhar estoque e preço ao longo do tempo, eu modelaria `fct_anuncio_veiculo` como um **snapshot diário por anúncio**. Esse desenho preserva mudanças de preço e disponibilidade, que seriam perdidas em uma tabela contendo apenas o estado mais recente.
+
+| Modelo | Conteúdo |
+| --- | --- |
+| `fct_anuncio_veiculo` | preço, disponibilidade, quilometragem e indicadores do anúncio por dia |
+| `dim_veiculo` | marca, modelo, versão, tipo, câmbio e combustível |
+| `dim_localidade_vendedor` | estado e cidade do vendedor |
+| `dim_tempo` | data, mês, trimestre e ano do snapshot |
+| `mart_mercado_estadual` | oferta, preço mediano e percentual com garantia por estado |
+
+As métricas principais seriam `anuncios_ativos`, `preco_mediano`, `variacao_preco`, `dias_em_estoque` e `percentual_com_garantia`. O preço mediano seria preferível à média em painéis executivos por ser menos sensível aos veículos de luxo e demais valores extremos.
 
 ### Camada de consumo para os modelos
 

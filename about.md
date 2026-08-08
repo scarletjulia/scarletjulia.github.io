@@ -4,19 +4,30 @@ title: Sobre
 permalink: /sobre/
 ---
 
-![participantes](https://dl.dropbox.com/s/bo94l66zuz2nqup/sleek.jpg?dl=0)
+Sou profissional de dados com experiência em TI e direcionamento para **Analytics Engineering**. Meu foco é construir a ponte entre dados brutos e decisões de negócio: transformar, modelar, testar e documentar informações para que análises e dashboards usem métricas consistentes.
 
-Sou profissional de dados com experiência em TI e foco em **Engenharia de Dados**. Gosto de transformar fontes brutas em conjuntos de dados confiáveis, documentados e prontos para consumo por análises, dashboards e modelos de Machine Learning.
+Nos projetos deste portfólio, apresento não apenas o resultado final, mas também a granularidade dos dados, as regras de transformação, os critérios de qualidade e as limitações de cada indicador. Essa abordagem aproxima exploração analítica de uma solução sustentável e reutilizável.
 
-Neste portfólio apresento estudos de caso com atenção a todo o ciclo do dado: ingestão, validação, transformação, modelagem, processamento e entrega. Também registro as decisões técnicas, os riscos de qualidade e as formas de evoluir cada solução para um pipeline produtivo.
+### Como penso uma solução analítica
 
-### Competências e temas em desenvolvimento
+- começo pela pergunta de negócio e pelo contrato da saída;
+- defino a granularidade antes de criar métricas;
+- separo dados brutos, transformações intermediárias e modelos de consumo;
+- documento regras, premissas e limitações;
+- trato testes e observabilidade como parte da entrega.
+
+### Tecnologias e competências
 
 - Python, Pandas e PySpark
 - SQL e modelagem de dados
 - ETL/ELT e integração de fontes heterogêneas
+- Modelagem dimensional e construção de camadas analíticas
 - Qualidade, rastreabilidade e documentação de dados
 - Jupyter Notebook e Power BI
 - Git e GitHub
+
+### Desenvolvimento atual
+
+Estou aprofundando práticas de Analytics Engineering, incluindo transformação modular com dbt, testes automatizados, documentação de modelos e definição de métricas em uma camada semântica.
 
 Veja também meus projetos no [GitHub](https://github.com/scarletjulia).

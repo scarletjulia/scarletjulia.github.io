@@ -21,14 +21,24 @@ layout: compress
 
     <div class="hero lazyload" data-bg="{{ site.url }}{{ site.baseurl }}/assets/img/{{ site.hero_img }}">
       <div class="hero__wrap">
+        <p class="hero__role">Analytics Engineer</p>
         <h1 class="hero__title">{{ site.title | escape }}</h1>
         <p class="hero__meta">{{ site.tagline }}</p>
       </div>
     </div>
 
     <main class="site__content">
-      <section class="blog">
+      <div class="container">
+        {{ content }}
+      </div>
+
+      <section class="blog portfolio-projects" id="projetos">
         <div class="container">
+          <header class="portfolio-projects__header">
+            <p class="analytics-kicker">ESTUDOS DE CASO</p>
+            <h2>Projetos de dados de ponta a ponta</h2>
+            <p>Cada projeto apresenta a origem dos dados, as transformações, as regras de qualidade e a camada preparada para consumo analítico.</p>
+          </header>
           <div class="post-list" itemscope="" itemtype="http://schema.org/Blog">
 
             {% for post in site.posts %}
