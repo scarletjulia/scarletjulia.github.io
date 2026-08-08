@@ -1,103 +1,97 @@
 ---
 layout: post
-title: "San Francisco Crimes"
+title: "Da ocorrência ao indicador: dados de crimes de São Francisco"
 featured-img: object_detection
-categories: [Data Analysis]
+summary: "Estruturação de uma base com 150 mil ocorrências para análises temporais, geográficas e por categoria."
+categories: [Engenharia de Dados, ETL, Python, Qualidade de Dados, Geodados]
 ---
 
-# The goal is to do free-form data analysis in order to extract relevant information from the database.
+Uma análise confiável de segurança pública depende de uma base consistente: identificadores únicos, datas válidas, categorias padronizadas e coordenadas dentro da região esperada. Neste estudo, preparei **150.500 ocorrências e 13 colunas** para responder perguntas sobre categoria, distrito, dia da semana, resolução e distribuição geográfica dos incidentes em São Francisco.
 
-## Topics:
+### Entendendo o esquema
 
-> 1) Different categories of crime
-> 2) Plot most common crimes
-> 3) District with Most Crime 
->    1) Crimes by District 
-> 4) Crime count on each day 
->    1) Crime on each day
-> 5) Solved Crimes 
-> 6) Top 15 Regions in Crime 
-> 7) Density of crime in San Francisco
+O conjunto contém os seguintes campos principais:
 
-## What you'll see
+| Campo | Papel no conjunto de dados |
+| --- | --- |
+| `IncidntNum` | identificador do incidente |
+| `Category` e `Descript` | classificação geral e descrição detalhada |
+| `Date`, `Time` e `DayOfWeek` | dimensões temporais |
+| `PdDistrict` | distrito policial |
+| `Resolution` | desfecho registrado |
+| `Address` | endereço informado |
+| `X`, `Y` e `Location` | representação geográfica |
+| `PdId` | identificador atribuído pelo departamento de polícia |
 
-## Entendimento dos dados:
-- Tamanho do conjunto de dados usando a função dados.shape (150500 entradas e 13 colunas).
-- Abaixo as colunas:
-1. "IncidntNum" é o número do incidente, que é um identificador único para cada registro no conjunto de dados.
-2. "Category" é a categoria geral do crime, como roubo, furto ou violência doméstica.
-3. "Descript" é uma descrição mais detalhada do crime, como "roubo de veículo".
-4. "DayOfWeek" é o dia da semana em que o crime ocorreu.
-5. "Date" é a data em que o crime ocorreu.
-6. "Time" é a hora em que o crime ocorreu.
-7. "PdDistrict" é o distrito policial em que o crime ocorreu.
-8. "Resolution" é o resultado do incidente, como "prender o suspeito".
-9. "Address" é o endereço onde o crime ocorreu.
-10. "X" e "Y" são as coordenadas geográficas do local do crime.
-11. "Location" é a localização do crime, dada pelas coordenadas geográficas.
-12. "PdId" é o ID do departamento de polícia atribuído ao incidente.
+Esse inventário funciona como o início de um contrato de dados. Antes de agregar, eu validaria unicidade, tipos, datas, categorias desconhecidas e limites de latitude e longitude. Também verificaria se `DayOfWeek` corresponde à data, evitando manter duas versões conflitantes da mesma informação.
 
-### Major crimes in San Francisco
-![imagem](https://user-images.githubusercontent.com/114709169/204068253-cf5ca369-fd7d-4959-8361-43fc87c7f8db.png)
+### Preparação da camada analítica
 
-A categoria mais frequente é "LARCENY/THEFT" com 40.409 ocorrências, seguida por "OTHER OFFENSES" com 19.599 ocorrências e "NON-CRIMINAL" com 17.866 ocorrências.
-A distribuição e frequência dos diferentes tipos de crimes no conjunto de dados e podem ser usados para priorizar áreas de policiamento ou investigação.
+As transformações podem ser organizadas em um fluxo simples e reproduzível:
 
-### District with Most Crime
-![imagem](https://user-images.githubusercontent.com/114709169/204068273-bf100813-73cf-4ec9-9da9-70cdb8c60915.png)
+{% highlight python %}
+required = [
+    "IncidntNum", "Category", "Date", "Time",
+    "PdDistrict", "Resolution", "X", "Y"
+]
 
-Essa tabela apresenta a contagem de incidentes policiais por distrito. Cada linha representa um distrito policial e a coluna "IncidntNum" mostra a quantidade de incidentes registrados em cada distrito.
+missing = set(required) - set(df.columns)
+if missing:
+    raise ValueError(f"Colunas obrigatórias ausentes: {sorted(missing)}")
 
-Por exemplo, o distrito com o maior número de incidentes é o Southern com 28.445 registros, seguido pelo Northern com 20.100 registros e Mission com 19.503 registros.
+df["occurred_at"] = pd.to_datetime(
+    df["Date"] + " " + df["Time"],
+    errors="coerce"
+)
 
-Esses resultados ajudam a entender a distribuição dos incidentes policiais por distrito e podem ser usados para avaliar a efetividade das políticas de segurança em diferentes áreas, identificar áreas de maior risco para a criminalidade e planejar estratégias de policiamento e prevenção de crimes.
+df["Category"] = df["Category"].str.strip().str.upper()
+df["PdDistrict"] = df["PdDistrict"].str.strip().str.upper()
+{% endhighlight %}
 
-### Crimes in the neighborhood
-![imagem](https://user-images.githubusercontent.com/114709169/204068342-6b19bba0-6825-43a6-94d3-b727e37dcfe2.png)
+Na sequência, uma tabela fato de ocorrências poderia se relacionar a dimensões de tempo, categoria e distrito. Isso evita repetir atributos descritivos e facilita o consumo por dashboards.
 
-Este gráfico apresenta a contagem de ocorrências de crimes por categoria em cada distrito policial. Cada linha representa um distrito policial e cada coluna representa uma categoria de crime. A célula em cada linha e coluna mostra a quantidade de ocorrências da categoria de crime no distrito policial correspondente.
+### Indicadores publicados
 
-Por exemplo, no distrito Tenderloin, a categoria de crime mais frequente é "LARCENY/THEFT" com 1.825 ocorrências, seguida por "NON-CRIMINAL" com 1.379 ocorrências e "OTHER OFFENSES" com 1.237 ocorrências.
+`LARCENY/THEFT` foi a categoria mais frequente, com **40.409 ocorrências**, seguida por `OTHER OFFENSES`, com **19.599**, e `NON-CRIMINAL`, com **17.866**.
 
-Esses resultados ajudam a entender a distribuição de diferentes tipos de crimes em cada distrito policial e podem ser usados para identificar áreas de maior risco, avaliar a efetividade das políticas de segurança em diferentes áreas e planejar estratégias de policiamento e prevenção de crimes específicos para cada distrito policial.
+![Categorias mais frequentes](https://user-images.githubusercontent.com/114709169/204068253-cf5ca369-fd7d-4959-8361-43fc87c7f8db.png)
 
-### Top 15 Regions in Crime
-![imagem](https://user-images.githubusercontent.com/114709169/204068386-88f0a78e-84f9-4440-a38a-ecc6c993f099.png)
+Por distrito policial, `SOUTHERN` concentrou **28.445 registros**, seguido por `NORTHERN`, com **20.100**, e `MISSION`, com **19.503**.
 
-Esse gráfico apresenta a contagem de ocorrências de crimes por categoria em diferentes dias da semana em um conjunto de dados. Cada barra no eixo x representa um dia da semana, e no eixo y representa uma categoria de crime e a célula em cada linha e coluna mostra a quantidade de ocorrências da categoria de crime no dia da semana correspondente.
+![Ocorrências por distrito policial](https://user-images.githubusercontent.com/114709169/204068273-bf100813-73cf-4ec9-9da9-70cdb8c60915.png)
 
-Por exemplo, a categoria de crime mais frequente no dia da semana sexta-feira é "LARCENY/THEFT" com 6.477 ocorrências, seguida por "LARCENY/THEFT" novamente no sábado com 6.384 ocorrências e na quinta-feira com 5.538 ocorrências.
+O cruzamento entre categoria e distrito mostra que o mesmo indicador geral pode esconder perfis locais distintos. Em `TENDERLOIN`, por exemplo, `LARCENY/THEFT` aparece com 1.825 ocorrências, `NON-CRIMINAL` com 1.379 e `OTHER OFFENSES` com 1.237.
 
-Esses resultados ajudam a entender a distribuição de diferentes tipos de crimes em diferentes dias da semana e podem ser usados para avaliar a efetividade das políticas de segurança em diferentes dias da semana. Por exemplo, pode-se identificar que o roubo é mais frequente nos finais de semana e que, portanto, pode ser necessário reforçar as medidas de segurança nesses dias. Além disso, esses resultados também podem ser usados para planejar estratégias de policiamento e prevenção de crimes específicos para cada dia da semana, com o objetivo de reduzir a incidência de crimes em dias específicos.
+![Categorias por distrito](https://user-images.githubusercontent.com/114709169/204068342-6b19bba0-6825-43a6-94d3-b727e37dcfe2.png)
 
-A análise desses dados também pode ajudar a identificar tendências ou padrões em diferentes dias da semana, como a ocorrência de crimes mais violentos em determinados dias ou a concentração de crimes em áreas específicas em dias específicos da semana. Isso pode levar a uma maior efetividade na prevenção e combate ao crime, além de promover a segurança dos cidadãos.
+A dimensão temporal permite comparar categorias por dia da semana. `LARCENY/THEFT` registrou 6.477 ocorrências na sexta-feira, 6.384 no sábado e 5.538 na quinta-feira.
 
-### Density of crime in San Francisco
-![imagem](https://user-images.githubusercontent.com/114709169/204068442-d5f2070b-57d8-45f8-9756-70f929ef2702.png)
+![Ocorrências por dia da semana](https://user-images.githubusercontent.com/114709169/204068386-88f0a78e-84f9-4440-a38a-ecc6c993f099.png)
 
-Esse gráfico apresenta a contagem de incidentes policiais por bairro em nosso conjunto de dados. Cada linha representa um bairro e a coluna "Count" mostra a quantidade de incidentes registrados em cada bairro.
+Por fim, as coordenadas permitem construir mapas de densidade. Antes dessa etapa, pontos ausentes ou fora dos limites de São Francisco devem ser isolados para não distorcer a visualização.
 
-Por exemplo, o bairro com o maior número de incidentes é o Southern com 28.445 registros, seguido pelo Bayview com 14.303 registros e Mission com 19.503 registros.
+![Densidade geográfica das ocorrências](https://user-images.githubusercontent.com/114709169/204068442-d5f2070b-57d8-45f8-9756-70f929ef2702.png)
 
-Esses resultados ajudam a entender a distribuição dos incidentes policiais por bairro e podem ser usados para avaliar a efetividade das políticas de segurança em diferentes bairros, identificar áreas de maior risco para a criminalidade e planejar estratégias de policiamento e prevenção de crimes. Além disso, esses dados podem ser úteis para as autoridades locais e para os moradores dessas áreas, pois podem fornecer informações importantes sobre a segurança em suas comunidades.
+### Cuidados de interpretação
 
-A análise de clusters pode ser usada para agrupar distritos policiais com características semelhantes, como a frequência de diferentes tipos de crimes, a densidade populacional, a presença de pontos turísticos ou áreas comerciais, entre outros fatores. Esses grupos podem ser usados para avaliar a efetividade das políticas de segurança em diferentes áreas e para planejar estratégias de policiamento e prevenção de crimes específicos para cada grupo.
+Contagem de registros não é sinônimo de taxa de criminalidade. Para comparar regiões de forma justa, seria necessário incluir população, área, fluxo de pessoas e mudanças no processo de registro. Da mesma forma, uma ocorrência não resolvida no conjunto pode representar atraso de atualização, e não necessariamente ausência de ação.
 
-Além disso, a análise de clusters pode ajudar a identificar áreas com altas taxas de criminalidade e a priorizar a alocação de recursos de segurança pública para essas áreas. Isso pode levar a uma maior efetividade na prevenção e combate ao crime, além de promover a segurança dos cidadãos.
+Essas limitações devem acompanhar a tabela ou o dashboard como metadados. Um consumidor precisa saber o período de cobertura, a data da última atualização e as regras aplicadas aos registros.
 
+### Evolução para um pipeline recorrente
 
+Eu implementaria a ingestão incremental por data de atualização, mantendo três camadas:
 
-## Libs
+1. **Raw:** cópia imutável da fonte;
+2. **Trusted:** datas, categorias e coordenadas validadas, com duplicidades tratadas;
+3. **Curated:** agregações por tempo, categoria e distrito, prontas para visualização.
 
-- [Python](https://www.python.org/doc/)
-- [Jupyter Notebook](https://docs.jupyter.org/en/latest/)
-- [Pandashttps://pandas.pydata.org/docs/user_guide/index.html]()
-- [Numpy](https://numpy.org/doc/stable/)
-- [Plotly](https://plotly.com/python/)
-- [matplotlib](https://matplotlib.org/stable/users/index.html)
-- [folium](https://python-visualization.github.io/folium/)
+Testes automáticos acompanhariam volume, unicidade de IDs, percentual de nulos e limites geográficos. A publicação usaria uma chave composta ou estratégia de *upsert* para que reprocessamentos não duplicassem incidentes.
 
-Font: https://thecleverprogrammer.com/2020/05/26/san-francisco-crime-analysis-with-data-science/
+### Tecnologias
 
----
+Python, Pandas, NumPy, Matplotlib, Plotly e Folium foram utilizados na exploração e visualização. O estudo tomou como referência o artigo [San Francisco Crime Analysis with Data Science](https://thecleverprogrammer.com/2020/05/26/san-francisco-crime-analysis-with-data-science/).
 
+### Aprendizados
+
+O maior ganho veio de separar a pergunta analítica da preparação do dado. Quando esquema, granularidade e regras de qualidade estão explícitos, os mesmos registros podem alimentar mapas, séries temporais e indicadores sem criar uma transformação diferente para cada gráfico.

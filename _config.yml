@@ -1,10 +1,11 @@
 # SITE CONFIGURATION
 encoding: UTF-8
+lang: pt-BR
 title: Scarlet Júlia # your site title
 author: scarletjulia # You :P
 description: > # Meta description of Homepage
-  Neste portfólio você poderá acompanhar meus projetos, análises e estudos relacionado à Ciência de Dados,
-    aplicação de Machine Learning, entre outros.
+  Portfólio de Engenharia de Dados com projetos sobre ingestão, transformação,
+  qualidade, processamento distribuído e disponibilização de dados confiáveis.
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://scarletjulia.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -26,7 +27,7 @@ navigation: # Navigation links
   - {name: 'Contato', link: '/contato'}
 
 tagline: >
-  Aqui você encontrará meus projetos, análises e estudos relacionado à Ciência de Dados, aplicação de Machine Learning, entre outros.
+  Projetos de Engenharia de Dados: da ingestão de fontes diversas à entrega de dados confiáveis para análise e Machine Learning.
 
 hero_img: posts/trajetoria_lg.jpg # Main background image: use the path from /assets/img/ => This will output /assets/img/posts/sleek_lg.jpg
 

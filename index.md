@@ -5,5 +5,5 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 #
 layout: default
-title: Portifólio - Scarlet Júlia
+title: Portfólio de Engenharia de Dados - Scarlet Júlia
 ---
