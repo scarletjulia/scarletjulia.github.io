@@ -2,10 +2,11 @@
 encoding: UTF-8
 lang: pt-BR
 title: Scarlet Júlia # your site title
-author: scarletjulia # You :P
+author: Scarlet Júlia
+logo: /assets/img/icons/jl.png
 description: > # Meta description of Homepage
-  Portfólio de Analytics Engineering com projetos sobre modelagem analítica,
-  transformação, qualidade de dados e métricas confiáveis para tomada de decisão.
+  Biblioteca técnica de Scarlet Júlia sobre pipelines confiáveis, PySpark, SQL,
+  qualidade de dados, observabilidade e Analytics Engineering.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://scarletjulia.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -15,7 +16,7 @@ social:
   links:
     #- https://twitter.com/BenBalter
     #- https://www.facebook.com/ben.balter
-    - https://www.linkedin.com/in/scarlet-júlia-ledo-amaral/
+    - https://www.linkedin.com/in/scarletjulia/
     #- https://plus.google.com/+BenBalter
     - https://github.com/scarletjulia
     #- https://keybase.io/benbalter
@@ -23,12 +24,13 @@ social:
 # THEME SETTINGS
 navigation: # Navigation links
   - {name: 'Início', link: '/'}
-  - {name: 'Projetos', link: '/#projetos'}
+  - {name: 'Artigos', link: '/#artigos'}
+  - {name: 'Biblioteca', link: '/biblioteca'}
   - {name: 'Sobre', link: '/sobre'}
   - {name: 'Contato', link: '/contato'}
 
 tagline: >
-  Transformo dados brutos em modelos analíticos, métricas confiáveis e informação pronta para decisão.
+  Arquitetura, pipelines escaláveis, PySpark, SQL, qualidade, observabilidade e Analytics Engineering.
 
 hero_img: posts/trajetoria_lg.jpg # Main background image: use the path from /assets/img/ => This will output /assets/img/posts/sleek_lg.jpg
 
@@ -63,6 +65,7 @@ exclude:
   - npm-debug.log
   - gulpfile.js
   - sleek.jpg
+  - labs
 
 include: ['_pages']
 permalink: /:title/

@@ -3,6 +3,9 @@ layout: post
 title: "Da ocorrência ao indicador: dados de crimes de São Francisco"
 featured-img: object_detection
 summary: "Modelagem de 150 mil ocorrências em fatos, dimensões e indicadores temporais e geográficos."
+description: "Modelagem dimensional de 150 mil ocorrências de São Francisco em fatos, dimensões e indicadores geográficos."
+series: "Analytics Engineering na Prática"
+last_modified_at: 2026-08-08
 categories: [Analytics Engineering, Modelagem Dimensional, Python, Qualidade de Dados, Geodados]
 ---
 

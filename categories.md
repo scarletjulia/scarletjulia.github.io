@@ -2,6 +2,7 @@
 layout: page
 title: Projetos por competência
 permalink: /categories/
+description: "Índice de artigos de Scarlet Júlia por competência técnica em Engenharia e Analytics Engineering."
 ---
 
 <div>

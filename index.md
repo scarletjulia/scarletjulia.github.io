@@ -5,31 +5,40 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 #
 layout: default
-title: Portfólio de Analytics Engineering - Scarlet Júlia
+title: Reliable Data Engineering - Scarlet Júlia
+description: "Artigos e projetos sobre pipelines confiáveis, PySpark, SQL, qualidade de dados, observabilidade e Analytics Engineering."
 ---
 
 <section class="analytics-intro" aria-labelledby="analytics-intro-title">
-  <p class="analytics-kicker">ANALYTICS ENGINEERING</p>
-  <h2 id="analytics-intro-title">Dados claros, métricas consistentes, decisões melhores.</h2>
-  <p class="analytics-intro__lead">Meu trabalho conecta engenharia, análise e contexto de negócio. Estruturo dados para que pessoas e produtos consumam a mesma definição de cada indicador, com qualidade e rastreabilidade.</p>
+  <p class="analytics-kicker">RELIABLE DATA ENGINEERING</p>
+  <h2 id="analytics-intro-title">Pipelines de dados confiáveis, do desenho à operação.</h2>
+  <p class="analytics-intro__lead">Esta é minha biblioteca pública sobre sistemas de dados que podem ser reprocessados, auditados e usados com confiança. Cada conteúdo conecta arquitetura, código, qualidade e impacto para quem consome o dado.</p>
 
   <div class="analytics-pillars">
     <article class="analytics-pillar">
-      <h3>Modelagem analítica</h3>
-      <p>Definição de granularidade, fatos, dimensões e tabelas orientadas às perguntas do negócio.</p>
+      <h3>Reliable Data Engineering</h3>
+      <p>Contratos, idempotência, lineage, observabilidade, reconciliação e tratamento explícito de falhas.</p>
     </article>
     <article class="analytics-pillar">
-      <h3>Transformação confiável</h3>
-      <p>SQL, Python e processamento distribuído com regras explícitas, código versionado e execução reproduzível.</p>
+      <h3>Data Pipelines at Scale</h3>
+      <p>PySpark, SQL, batch, cargas incrementais, APIs, watermarks e estratégias de deduplicação.</p>
     </article>
     <article class="analytics-pillar">
-      <h3>Qualidade e métricas</h3>
-      <p>Testes, documentação e critérios de negócio para entregar indicadores consistentes a análises e dashboards.</p>
+      <h3>Analytics Engineering</h3>
+      <p>Modelagem dimensional, marts, métricas documentadas e camadas RAW, Trusted e Curated.</p>
     </article>
   </div>
 
+  <nav class="topic-links" aria-label="Principais temas da biblioteca">
+    <a href="{{ '/biblioteca/#reliable-data-pipelines' | relative_url }}">Reliable Data Pipelines</a>
+    <a href="{{ '/biblioteca/#pyspark-sql' | relative_url }}">PySpark &amp; SQL</a>
+    <a href="{{ '/biblioteca/#data-quality' | relative_url }}">Data Quality</a>
+    <a href="{{ '/biblioteca/#analytics-engineering' | relative_url }}">Analytics Engineering</a>
+  </nav>
+
   <div class="analytics-actions">
-    <a class="btn" href="#projetos">Explorar projetos</a>
-    <a class="analytics-actions__link" href="{{ '/sobre/' | relative_url }}">Conhecer minha trajetória</a>
+    <a class="btn" href="{% post_url 2026-08-08-integrando-fontes-heterogeneas-em-um-pipeline-de-dados %}">Começar pelo artigo principal</a>
+    <a class="analytics-actions__link" href="{{ '/biblioteca/' | relative_url }}">Explorar a biblioteca</a>
+    <a class="analytics-actions__link" href="https://github.com/scarletjulia/scarletjulia.github.io/tree/main/labs/reliable-data-pipeline-demo">Ver demonstração no GitHub</a>
   </div>
 </section>

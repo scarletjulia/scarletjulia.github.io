@@ -3,6 +3,9 @@ layout: post
 title: "Pipeline distribuído para minerar padrões de crimes na Inglaterra"
 featured-img: bandeira_inglaterra
 summary: "Transformação de 124 mil ocorrências em modelos analíticos e padrões frequentes com SparkR e FP-Growth."
+description: "Pipeline distribuído com SparkR e FP-Growth para transformar 124 mil ocorrências em modelos analíticos e padrões frequentes."
+series: "Data Pipelines at Scale"
+last_modified_at: 2026-08-08
 categories: [Analytics Engineering, Transformação de Dados, Spark, Qualidade de Dados, Mineração de Dados]
 ---
 

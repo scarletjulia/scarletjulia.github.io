@@ -51,6 +51,11 @@ layout: compress
                 {{ words | divided_by:180 }} min de leitura
             {% endif %}
         </span>
+        {% if page.last_modified_at %}
+        <span>
+          &nbsp;&middot;&nbsp; Atualizado em <time itemprop="dateModified">{{ page.last_modified_at | date: "%d/%m/%Y" }}</time>
+        </span>
+        {% endif %}
       </p>
     </div>
   </div>
@@ -59,9 +64,36 @@ layout: compress
     <div class="container">
       <article class="post-content" itemprop="articleBody">
 
+        {% if page.series %}
+        <p class="article-series">
+          <span>Série</span>
+          <a href="{{ '/biblioteca/' | relative_url }}">{{ page.series }}</a>
+        </p>
+        {% endif %}
+
         {{ content }}
 
       </article>
+      {% if page.series %}
+        {% assign related_found = false %}
+        {% for related in site.posts %}
+          {% if related.url != page.url and related.series == page.series %}
+            {% assign related_found = true %}
+          {% endif %}
+        {% endfor %}
+        {% if related_found %}
+        <aside class="related-reading" aria-labelledby="related-reading-title">
+          <h2 id="related-reading-title">Continue nesta série</h2>
+          <ul>
+          {% for related in site.posts %}
+            {% if related.url != page.url and related.series == page.series %}
+            <li><a href="{{ related.url | relative_url }}">{{ related.title }}</a></li>
+            {% endif %}
+          {% endfor %}
+          </ul>
+        </aside>
+        {% endif %}
+      {% endif %}
       <div class="post-content controls__inner">
         <div class="controls__item prev">
           {% if page.previous.url %}

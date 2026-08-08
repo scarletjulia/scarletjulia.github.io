@@ -3,6 +3,9 @@ layout: post
 title: "Fontes heterogêneas: projetando um pipeline de dados confiável"
 featured-img: python
 summary: "Integração de CSV, API e PostgreSQL até um mart de vendas com métricas documentadas e testáveis."
+description: "Como integrar CSV, API JSON e PostgreSQL com contratos, watermarks, idempotência, quarentena, qualidade e observabilidade."
+series: "Reliable Data Pipelines"
+last_modified_at: 2026-08-08
 categories: [Analytics Engineering, ELT, PySpark, SQL, Qualidade de Dados]
 ---
 
@@ -15,6 +18,10 @@ Neste artigo, projeto um pipeline para unificar três fontes heterogêneas de um
 - **PostgreSQL:** pedidos e itens registrados continuamente.
 
 O objetivo é publicar uma tabela analítica de vendas com valores convertidos para reais, pronta para dashboards e análises.
+
+<div class="evidence-callout">
+  <p><strong>Artigo + evidência:</strong> além da arquitetura e dos exemplos abaixo, disponibilizei uma <a href="https://github.com/scarletjulia/scarletjulia.github.io/tree/main/labs/reliable-data-pipeline-demo">demonstração executável no GitHub</a> com carga idempotente, controle de watermark, quarentena e testes automatizados.</p>
+</div>
 
 ### Começando pelo contrato de saída
 

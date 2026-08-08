@@ -3,6 +3,9 @@ layout: post
 title: "Pipeline de dados para previsão de preços de carros usados"
 featured-img: carros_usados
 summary: "Modelagem de anúncios, regras de qualidade e métricas de mercado antes da camada de Machine Learning."
+description: "Estudo de Analytics Engineering com modelagem de anúncios, qualidade, métricas de mercado e preparação para Machine Learning."
+series: "Analytics Engineering na Prática"
+last_modified_at: 2026-08-08
 categories: [Analytics Engineering, Camada Analítica, Python, Qualidade de Dados, Machine Learning]
 ---
 

@@ -2,11 +2,20 @@
 layout: page
 title: Sobre
 permalink: /sobre/
+description: "Conheça Scarlet Júlia e sua abordagem para construir pipelines, modelos e métricas de dados confiáveis."
 ---
 
-Sou profissional de dados com experiência em TI e direcionamento para **Analytics Engineering**. Meu foco é construir a ponte entre dados brutos e decisões de negócio: transformar, modelar, testar e documentar informações para que análises e dashboards usem métricas consistentes.
+Sou profissional de dados com experiência em TI e foco em **sistemas de dados confiáveis**. Escrevo sobre as decisões que ficam entre “o pipeline executou” e “o dado pode ser usado com confiança”: contratos, idempotência, qualidade, observabilidade, transformação e modelagem analítica.
 
-Nos projetos deste portfólio, apresento não apenas o resultado final, mas também a granularidade dos dados, as regras de transformação, os critérios de qualidade e as limitações de cada indicador. Essa abordagem aproxima exploração analítica de uma solução sustentável e reutilizável.
+Este site funciona como minha biblioteca técnica. Nos artigos, apresento o problema, as decisões de arquitetura, os exemplos de código, os testes e as limitações da solução. Quando há uma implementação de referência, o conteúdo aponta para a evidência versionada no GitHub.
+
+### Minha linha editorial
+
+Concentro meu trabalho em três pilares:
+
+1. **Reliable Data Engineering:** qualidade, contratos, idempotência, lineage e observabilidade;
+2. **Data Pipelines at Scale:** PySpark, SQL, batch, incremental, APIs e CDC;
+3. **Analytics Engineering:** modelagem dimensional, marts, métricas e camadas de consumo.
 
 ### Como penso uma solução analítica
 
@@ -28,6 +37,6 @@ Nos projetos deste portfólio, apresento não apenas o resultado final, mas tamb
 
 ### Desenvolvimento atual
 
-Estou aprofundando práticas de Analytics Engineering, incluindo transformação modular com dbt, testes automatizados, documentação de modelos e definição de métricas em uma camada semântica.
+Estou aprofundando transformação modular com dbt, testes automatizados, documentação de modelos e definição de métricas em uma camada semântica. Meu compromisso editorial é separar claramente o que foi implementado, o que é uma proposta de evolução e quais premissas sustentam cada resultado.
 
-Veja também meus projetos no [GitHub](https://github.com/scarletjulia).
+Explore a [biblioteca técnica]({{ '/biblioteca/' | relative_url }}) ou veja as implementações no [GitHub](https://github.com/scarletjulia).
