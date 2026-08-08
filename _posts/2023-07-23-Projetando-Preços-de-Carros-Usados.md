@@ -10,6 +10,10 @@ Este projeto nasceu de um desafio de Ciência de Dados da Indicium, concluído e
 
 O [notebook completo](https://github.com/scarletjulia/Lighthouse_Indicium/blob/main/LH_CD_SCARLET_JULIA.ipynb) registra a análise e os tratamentos realizados. Aqui, apresento o trabalho com foco no fluxo do dado: leitura, validação, transformação e entrega para o modelo.
 
+![Pátio de uma concessionária de veículos usados]({{ '/assets/img/posts/carros-usados/acervo-concessionaria.jpg' | relative_url }})
+
+*Imagem: Davidrice557, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:UK_Car_Dealers.jpg), disponibilizada sob [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.pt-br). As visualizações analíticas abaixo foram exportadas do [notebook público do projeto](https://github.com/scarletjulia/Lighthouse_Indicium) e estão versionadas neste repositório.*
+
 ### O desafio começa na ingestão
 
 Os dados chegaram em dois arquivos:
@@ -73,17 +77,13 @@ arquivos recebidos
 
 Para carros de marcas populares, São Paulo apresentou a maior oferta e um preço médio relativamente alto. No índice usado no estudo, o estado alcançou `0,739091`, combinando volume de anúncios e preço.
 
-![Carros populares por estado](https://drive.google.com/uc?export=view&id=1RabD-ZTcA-__0CZqZnhMkDyaZoPLaAZM)
-
-![Distribuição de preços de carros populares](https://drive.google.com/uc?export=view&id=19-A0l1lymTHrSzC0auYv2lY9B0R6Wsbu)
+![Quantidade de carros populares e preço médio por estado]({{ '/assets/img/posts/carros-usados/carros-populares-por-estado.png' | relative_url }})
 
 São Paulo também apresentou oferta relevante de picapes automáticas, com 1.712 unidades e preço médio aproximado de R$ 188,4 mil. Para interpretar “melhor estado para comprar”, porém, preço, oferta e variedade precisam ser ponderados de acordo com a necessidade do consumidor.
 
-![Preço de picapes automáticas por estado](https://drive.google.com/uc?export=view&id=1-BzcCnqnQFQUiuDbTVIdmBMUwZzM6Gky)
+![Distribuição de preços de picapes automáticas por estado]({{ '/assets/img/posts/carros-usados/preco-picapes-automaticas.png' | relative_url }})
 
 Minas Gerais ficou entre os estados com maior volume de veículos ainda cobertos por garantia de fábrica. O dado descreve os anúncios disponíveis; sozinho, ele não demonstra preferência de compra dos consumidores.
-
-![Veículos com garantia por estado](https://drive.google.com/uc?export=view&id=196eA9oiipCukIpcUBmxgIz_Moyz10ins)
 
 ### Hipóteses avaliadas
 
@@ -91,13 +91,13 @@ O ano de fabricação apresentou relação positiva e estatisticamente significa
 
 Veículos com revisão em concessionária tiveram preço mediano de R$ 136,21 mil, contra R$ 105,42 mil no grupo sem esse registro. Para revisões dentro da agenda, as medianas foram R$ 134,59 mil e R$ 109,73 mil. Essas diferenças são associações observadas; não provam que a revisão, por si só, causou o aumento.
 
-![Revisão em concessionária e preço](https://drive.google.com/uc?export=view&id=1olnNMFrR6lGHHrSRBCzBFbq4Nni3IeGY)
+![Impacto das revisões em concessionária no preço]({{ '/assets/img/posts/carros-usados/revisoes-concessionaria-preco.png' | relative_url }})
 
-![Revisão na agenda e preço](https://drive.google.com/uc?export=view&id=1kLDYar3I7AI0t3soqNkKx8pcp3jqiTgV)
+![Impacto das revisões feitas dentro da agenda no preço]({{ '/assets/img/posts/carros-usados/revisoes-agenda-preco.png' | relative_url }})
 
 A hipótese de que mais fotos indicariam preço maior não se confirmou: anúncios com até a média de fotos tiveram mediana de R$ 117,74 mil, contra R$ 107,15 mil nos anúncios acima da média.
 
-![Número de fotos e preço](https://drive.google.com/uc?export=view&id=1OM3G6yMjuQz78w3YfDkE8onE_0YbtU-X)
+![Relação entre o número de fotos e o preço do veículo]({{ '/assets/img/posts/carros-usados/numero-fotos-preco.png' | relative_url }})
 
 ### Camada de consumo para os modelos
 
